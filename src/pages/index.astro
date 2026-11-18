@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+---
+
+<BaseLayout>
+  <section class="scaffold">
+    <p class="eyebrow">{site.title}</p>
+    <h1>{site.name}</h1>
+    <p class="lede">{site.tagline}</p>
+    <p class="meta">
+      {site.majors.join(" & ")} · {site.school}
+    </p>
+    <p class="note">
+      Scaffold ready — layout shell and pages land in the next step.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .scaffold {
+    max-width: var(--width-content);
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .eyebrow,
+  .meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  h1 {
+    font-size: var(--text-3xl);
+  }
+
+  .lede {
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+    color: var(--color-ink-muted);
+  }
+
+  .note {
+    margin-top: var(--space-3);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-rule);
+    color: var(--color-ink-muted);
+    font-size: var(--text-sm);
+  }
+</style>

@@ -1,0 +1,56 @@
+:root {
+  /* Palette — cool paper / fog with ink + teal accent */
+  --color-bg: #f2f4f6;
+  --color-bg-elevated: #fafbfc;
+  --color-ink: #12151a;
+  --color-ink-muted: #5a6572;
+  --color-accent: #0f766e;
+  --color-accent-soft: #d8efec;
+  --color-rule: #d4dbe3;
+  --color-focus: #0f766e;
+
+  /* Typography */
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", sans-serif;
+  --font-body: "Source Sans 3", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.625rem;
+  --text-2xl: 2.25rem;
+  --text-3xl: clamp(2.5rem, 6vw, 4rem);
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-body: 1.65;
+
+  /* Space scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4.5rem;
+  --space-9: 6rem;
+
+  /* Layout */
+  --measure: 65ch;
+  --width-content: 42rem;
+  --width-wide: 68rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 160ms;
+  --duration-med: 280ms;
+
+  /* Elevation / z */
+  --z-base: 0;
+  --z-header: 10;
+  --z-overlay: 20;
+}
