@@ -1,53 +1,393 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { site } from "../data/site";
+import { formatDate } from "../lib/format";
+
+const projects = (await getCollection("projects"))
+  .filter((project) => project.data.featured)
+  .sort(
+    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+  )
+  .slice(0, 3);
+
+const posts = (await getCollection("writing"))
+  .filter((post) => !post.data.draft)
+  .sort(
+    (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+  )
+  .slice(0, 3);
 ---
 
 <BaseLayout>
-  <section class="scaffold">
-    <p class="eyebrow">{site.title}</p>
-    <h1>{site.name}</h1>
-    <p class="lede">{site.tagline}</p>
-    <p class="meta">
-      {site.majors.join(" & ")} · {site.school}
-    </p>
-    <p class="note">
-      Scaffold ready — layout shell and pages land in the next step.
-    </p>
+  <section class="hero" aria-labelledby="hero-name">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">{site.title}</p>
+      <h1 id="hero-name">{site.name}</h1>
+      <p class="hero__headline">
+        Building full-stack tools that make engineers feel 100x.
+      </p>
+      <p class="hero__lede">
+        Developer tools and personal productivity software — from Amazon to
+        Polar Semiconductor, while studying Computer Engineering and Catholic
+        Studies at {site.school}.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/projects">View projects</a>
+        <a class="btn" href="/writing">Read writing</a>
+        <a class="btn" href={`mailto:${site.email}`}>Email</a>
+      </div>
+    </div>
+
+    <aside class="hero__spec" aria-label="Profile snapshot">
+      <p class="hero__spec-title">Profile</p>
+      <dl>
+        <div>
+          <dt>Focus</dt>
+          <dd>Dev tools · Productivity</dd>
+        </div>
+        <div>
+          <dt>Now</dt>
+          <dd>Intern · Polar Semiconductor</dd>
+        </div>
+        <div>
+          <dt>Previously</dt>
+          <dd>Amazon</dd>
+        </div>
+        <div>
+          <dt>Study</dt>
+          <dd>{site.majors.join(" + ")}</dd>
+        </div>
+        <div>
+          <dt>Based</dt>
+          <dd>{site.location}</dd>
+        </div>
+      </dl>
+    </aside>
+  </section>
+
+  <section class="rail" aria-labelledby="featured-projects">
+    <div class="rail__head">
+      <h2 id="featured-projects">Featured projects</h2>
+      <a href="/projects">All projects</a>
+    </div>
+    {
+      projects.length > 0 ? (
+        <ul class="rail__list">
+          {projects.map((project) => (
+            <li>
+              <a class="rail__row" href={`/projects/${project.id}`}>
+                <span class="rail__row-main">
+                  <span class="rail__row-title">{project.data.title}</span>
+                  <span class="rail__row-summary">{project.data.summary}</span>
+                </span>
+                <span class="rail__row-meta">
+                  {project.data.tags.slice(0, 2).join(" · ")}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="rail__empty">
+          Project write-ups are on the way.{" "}
+          <a href="/projects">Browse the projects page</a>.
+        </p>
+      )
+    }
+  </section>
+
+  <section class="rail" aria-labelledby="latest-writing">
+    <div class="rail__head">
+      <h2 id="latest-writing">Latest writing</h2>
+      <a href="/writing">All writing</a>
+    </div>
+    {
+      posts.length > 0 ? (
+        <ul class="rail__list">
+          {posts.map((post) => (
+            <li>
+              <a class="rail__row" href={`/writing/${post.id}`}>
+                <span class="rail__row-main">
+                  <span class="rail__row-title">{post.data.title}</span>
+                  <span class="rail__row-summary">{post.data.description}</span>
+                </span>
+                <time
+                  class="rail__row-meta"
+                  datetime={post.data.publishedAt.toISOString()}
+                >
+                  {formatDate(post.data.publishedAt)}
+                </time>
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="rail__empty">
+          No published posts yet.{" "}
+          <a href="/writing">Visit the writing index</a>.
+        </p>
+      )
+    }
   </section>
 </BaseLayout>
 
 <style>
-  .scaffold {
-    max-width: var(--width-content);
+  .hero {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-7);
+    align-items: end;
+    min-height: calc(100dvh - 8rem);
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-rule);
+    animation: rise-in var(--duration-med) var(--ease-out) both;
   }
 
-  .eyebrow,
-  .meta {
+  .hero__copy {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 38rem;
+  }
+
+  .hero__eyebrow {
+    margin: 0;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
-    letter-spacing: 0.04em;
     text-transform: uppercase;
     color: var(--color-ink-muted);
   }
 
-  h1 {
+  .hero h1 {
     font-size: var(--text-3xl);
+    line-height: 0.95;
   }
 
-  .lede {
-    font-size: var(--text-lg);
+  .hero__headline {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+    font-weight: 500;
     line-height: var(--leading-snug);
+    text-wrap: balance;
+  }
+
+  .hero__lede {
+    margin: 0;
+    color: var(--color-ink-muted);
+    max-width: 36ch;
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    padding-top: var(--space-2);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+    padding: 0.55rem 1rem;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    text-decoration: none;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  .btn:hover {
+    border-color: var(--color-ink);
+    color: var(--color-ink);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+
+  .btn--primary {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bg);
+  }
+
+  .btn--primary:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #fff;
+  }
+
+  .hero__spec {
+    justify-self: stretch;
+    padding: var(--space-5);
+    border: 1px solid var(--color-rule);
+    background:
+      linear-gradient(
+        160deg,
+        color-mix(in srgb, var(--color-accent-soft) 55%, transparent),
+        transparent 55%
+      ),
+      var(--color-bg-elevated);
+    animation: rise-in var(--duration-med) var(--ease-out) 80ms both;
+  }
+
+  .hero__spec-title {
+    margin: 0 0 var(--space-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .hero__spec dl {
+    margin: 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .hero__spec dl > div {
+    display: grid;
+    gap: var(--space-1);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .hero__spec dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
     color: var(--color-ink-muted);
   }
 
-  .note {
-    margin-top: var(--space-3);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-rule);
-    color: var(--color-ink-muted);
+  .hero__spec dd {
+    margin: 0;
     font-size: var(--text-sm);
+  }
+
+  .rail {
+    padding-block: var(--space-8);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .rail:last-of-type {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .rail__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .rail__head h2 {
+    font-size: var(--text-xl);
+  }
+
+  .rail__head a {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-ink-muted);
+  }
+
+  .rail__head a:hover {
+    color: var(--color-accent);
+  }
+
+  .rail__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .rail__row {
+    display: grid;
+    gap: var(--space-2);
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--color-rule);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .rail__row:hover {
+    background: color-mix(in srgb, var(--color-accent-soft) 35%, transparent);
+  }
+
+  .rail__row-main {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .rail__row-title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 600;
+  }
+
+  .rail__row-summary {
+    color: var(--color-ink-muted);
+    max-width: 52ch;
+  }
+
+  .rail__row-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  .rail__empty {
+    color: var(--color-ink-muted);
+  }
+
+  @keyframes rise-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .hero {
+      grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.75fr);
+      gap: var(--space-8);
+    }
+
+    .rail__row {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: var(--space-5);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero,
+    .hero__spec {
+      animation: none;
+    }
+
+    .btn:active {
+      transform: none;
+    }
   }
 </style>

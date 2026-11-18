@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Writing"
+  description="Notes on engineering craft, developer tools, and building in public."
+>
+  <section class="page-stub">
+    <p class="eyebrow">Articles</p>
+    <h1>Writing</h1>
+    <p class="lede">
+      The blog index and post templates land in the next implementation step.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-stub {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--width-content);
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .lede {
+    color: var(--color-ink-muted);
+  }
+</style>

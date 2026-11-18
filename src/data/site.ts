@@ -1,16 +1,16 @@
 export const site = {
   name: "Erik",
-  fullName: "Erik",
+  fullName: "Erik Esteban Perez",
   title: "Software Engineer",
   tagline:
     "Full-stack engineer building developer tools and personal productivity software.",
   school: "University of St. Thomas",
   majors: ["Computer Engineering", "Catholic Studies"],
-  email: "hello@example.com",
-  location: "Minnesota",
+  email: "estebaerik2@gmail.com",
+  location: "St. Paul, Minnesota",
   socials: {
     github: "https://github.com/erikep",
-    linkedin: "https://www.linkedin.com/in/erikep",
+    linkedin: "https://www.linkedin.com/in/erikestebanperez/",
   },
 } as const;
 

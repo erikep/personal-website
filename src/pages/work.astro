@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Work" description="Experience at Amazon, Polar Semiconductor, and beyond.">
+  <section class="page-stub">
+    <p class="eyebrow">Experience</p>
+    <h1>Work</h1>
+    <p class="lede">
+      Timeline of roles and impact is next. This page is wired into the site
+      shell so navigation stays intact while content lands.
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-stub {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--width-content);
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .lede {
+    color: var(--color-ink-muted);
+  }
+</style>
