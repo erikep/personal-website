@@ -18,3 +18,14 @@ export function formatDate(date: Date) {
 export function formatMonthYear(date: Date) {
   return monthYearFormatter.format(date);
 }
+
+export function formatDateRange(
+  startDate: Date,
+  endDate?: Date,
+  current = false,
+) {
+  const start = formatMonthYear(startDate);
+  if (current) return `${start} — Present`;
+  if (!endDate) return start;
+  return `${start} — ${formatMonthYear(endDate)}`;
+}

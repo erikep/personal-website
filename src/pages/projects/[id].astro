@@ -13,6 +13,14 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+
+const linkEntries = (
+  [
+    ["GitHub", project.data.links.github],
+    ["Live", project.data.links.live],
+    ["Demo", project.data.links.demo],
+  ] as const
+).filter((entry): entry is [string, string] => Boolean(entry[1]));
 ---
 
 <BaseLayout title={project.data.title} description={project.data.summary}>
@@ -23,53 +31,41 @@ const { Content } = await render(project);
       <time datetime={project.data.publishedAt.toISOString()}>
         {formatDate(project.data.publishedAt)}
       </time>
+      {
+        project.data.featured && (
+          <>
+            <span aria-hidden="true">/</span>
+            <span class="featured">Featured</span>
+          </>
+        )
+      }
     </p>
-    <h1>{project.data.title}</h1>
-    <p class="summary">{project.data.summary}</p>
-    {
-      project.data.tags.length > 0 && (
-        <ul class="tags">
-          {project.data.tags.map((tag) => (
-            <li>{tag}</li>
-          ))}
-        </ul>
-      )
-    }
-    {
-      (project.data.links.github ||
-        project.data.links.live ||
-        project.data.links.demo) && (
-        <p class="links">
-          {project.data.links.github && (
-            <a
-              href={project.data.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-          )}
-          {project.data.links.live && (
-            <a
-              href={project.data.links.live}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Live
-            </a>
-          )}
-          {project.data.links.demo && (
-            <a
-              href={project.data.links.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Demo
-            </a>
-          )}
-        </p>
-      )
-    }
+
+    <header class="project__header">
+      <h1>{project.data.title}</h1>
+      <p class="summary">{project.data.summary}</p>
+      {
+        project.data.tags.length > 0 && (
+          <ul class="tags">
+            {project.data.tags.map((tag) => (
+              <li>{tag}</li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        linkEntries.length > 0 && (
+          <p class="links">
+            {linkEntries.map(([label, href]) => (
+              <a href={href} target="_blank" rel="noopener noreferrer">
+                {label}
+              </a>
+            ))}
+          </p>
+        )
+      }
+    </header>
+
     <div class="body">
       <Content />
     </div>
@@ -79,7 +75,7 @@ const { Content } = await render(project);
 <style>
   .project {
     display: grid;
-    gap: var(--space-4);
+    gap: var(--space-6);
     max-width: var(--measure);
   }
 
@@ -102,11 +98,23 @@ const { Content } = await render(project);
     color: var(--color-accent);
   }
 
+  .featured {
+    color: var(--color-accent);
+  }
+
+  .project__header {
+    display: grid;
+    gap: var(--space-4);
+    padding-bottom: var(--space-5);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
   h1 {
     font-size: var(--text-2xl);
   }
 
   .summary {
+    margin: 0;
     color: var(--color-ink-muted);
     font-size: var(--text-lg);
     line-height: var(--leading-snug);
@@ -130,8 +138,6 @@ const { Content } = await render(project);
     flex-wrap: wrap;
     gap: var(--space-3) var(--space-4);
     margin: 0;
-    padding-bottom: var(--space-4);
-    border-bottom: 1px solid var(--color-rule);
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     text-transform: uppercase;
@@ -145,11 +151,32 @@ const { Content } = await render(project);
     color: var(--color-accent);
   }
 
-  .body {
-    padding-top: var(--space-2);
+  .body :global(h2) {
+    margin: var(--space-6) 0 var(--space-3);
+    font-size: var(--text-xl);
   }
 
-  .body :global(p) {
+  .body :global(h3) {
+    margin: var(--space-5) 0 var(--space-2);
+    font-size: var(--text-lg);
+  }
+
+  .body :global(p),
+  .body :global(ul),
+  .body :global(ol) {
     margin-block: 0 var(--space-4);
+  }
+
+  .body :global(ul),
+  .body :global(ol) {
+    padding-left: 1.15rem;
+  }
+
+  .body :global(li + li) {
+    margin-top: var(--space-2);
+  }
+
+  .body :global(a) {
+    color: var(--color-accent);
   }
 </style>

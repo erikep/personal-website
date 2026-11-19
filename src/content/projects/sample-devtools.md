@@ -10,4 +10,14 @@ links:
   github: https://github.com/erikep
 ---
 
-Replace this sample with a real project. Structure the write-up as problem → approach → outcome → links.
+## Problem
+
+Describe the friction you set out to remove — who felt it, and why existing tools fell short.
+
+## Approach
+
+Explain the architecture and product decisions: stack, constraints, and what you deliberately left out.
+
+## Outcome
+
+Share what shipped, what improved, and what you’d do next. Link demos or repos in the frontmatter above.

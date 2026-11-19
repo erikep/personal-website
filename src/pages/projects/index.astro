@@ -1,25 +1,72 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { formatDate } from "../../lib/format";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf(),
+);
+
+const featured = projects.filter((project) => project.data.featured);
+const rest = projects.filter((project) => !project.data.featured);
+const ordered = [...featured, ...rest];
 ---
 
 <BaseLayout
   title="Projects"
   description="Selected full-stack work across developer tools and productivity software."
 >
-  <section class="page-stub">
+  <header class="page-head">
     <p class="eyebrow">Portfolio</p>
     <h1>Projects</h1>
     <p class="lede">
-      Project index and case studies land in the next implementation step.
+      Case studies in developer tools and personal productivity — problem,
+      approach, and outcome for each build.
     </p>
-  </section>
+  </header>
+
+  {
+    ordered.length > 0 ? (
+      <ul class="project-list">
+        {ordered.map((project) => (
+          <li>
+            <a class="project-row" href={`/projects/${project.id}`}>
+              <span class="project-row__main">
+                <span class="project-row__title-line">
+                  <span class="project-row__title">{project.data.title}</span>
+                  {project.data.featured && (
+                    <span class="project-row__badge">Featured</span>
+                  )}
+                </span>
+                <span class="project-row__summary">{project.data.summary}</span>
+              </span>
+              <span class="project-row__aside">
+                <time datetime={project.data.publishedAt.toISOString()}>
+                  {formatDate(project.data.publishedAt)}
+                </time>
+                {project.data.tags.length > 0 && (
+                  <span>{project.data.tags.slice(0, 3).join(" · ")}</span>
+                )}
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <p class="empty">
+        No projects published yet. Add Markdown files under{" "}
+        <code>src/content/projects/</code>.
+      </p>
+    )
+  }
 </BaseLayout>
 
 <style>
-  .page-stub {
+  .page-head {
     display: grid;
     gap: var(--space-4);
     max-width: var(--width-content);
+    margin-bottom: var(--space-8);
   }
 
   .eyebrow {
@@ -35,6 +82,90 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
   }
 
   .lede {
+    margin: 0;
     color: var(--color-ink-muted);
+    max-width: 48ch;
+  }
+
+  .project-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .project-row {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--color-rule);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .project-row:hover {
+    background: color-mix(in srgb, var(--color-accent-soft) 35%, transparent);
+  }
+
+  .project-row__main {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .project-row__title-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-3);
+  }
+
+  .project-row__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+  }
+
+  .project-row__badge {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .project-row__summary {
+    color: var(--color-ink-muted);
+    max-width: 52ch;
+  }
+
+  .project-row__aside {
+    display: grid;
+    gap: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .empty {
+    color: var(--color-ink-muted);
+  }
+
+  .empty code {
+    font-size: 0.92em;
+  }
+
+  @media (min-width: 56rem) {
+    .project-row {
+      grid-template-columns: minmax(0, 1fr) 12rem;
+      gap: var(--space-6);
+      align-items: end;
+    }
+
+    .project-row__aside {
+      text-align: right;
+      justify-items: end;
+    }
   }
 </style>
