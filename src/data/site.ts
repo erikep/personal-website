@@ -8,8 +8,8 @@ export const site = {
   majors: ["Computer Engineering", "Catholic Studies"],
   email: "estebaerik2@gmail.com",
   location: "St. Paul, Minnesota",
-  /** Canonical site origin — update when the production domain is final. */
-  url: "https://erikep.com",
+  /** Canonical site origin — update when a custom domain is attached. */
+  url: "https://erik.epsystems.workers.dev",
   /** Default Open Graph / Twitter share image (served from /public). */
   ogImage: "/images/og.jpg",
   socials: {

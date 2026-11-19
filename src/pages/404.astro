@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Not found" description="This page does not exist." noindex={true}>
+  <section class="missing">
+    <p class="eyebrow">404</p>
+    <h1>Page not found</h1>
+    <p class="lede">
+      That route isn’t on this site. Head home or browse the main sections.
+    </p>
+    <p class="actions">
+      <a href="/">Home</a>
+      <a href="/work">Work</a>
+      <a href="/projects">Projects</a>
+      <a href="/writing">Writing</a>
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .missing {
+    display: grid;
+    gap: var(--space-4);
+    max-width: var(--width-content);
+  }
+
+  .eyebrow {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+  }
+
+  .lede {
+    margin: 0;
+    color: var(--color-ink-muted);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-4);
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    text-transform: uppercase;
+  }
+
+  .actions a {
+    text-decoration: none;
+  }
+
+  .actions a:hover {
+    color: var(--color-accent);
+  }
+</style>

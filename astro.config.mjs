@@ -4,6 +4,6 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://erikep.com",
+  site: "https://erik.epsystems.workers.dev",
   integrations: [sitemap()],
 });

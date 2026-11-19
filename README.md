@@ -34,3 +34,16 @@ Update `site.url` in `src/data/site.ts` and `site` in `astro.config.mjs` togethe
 | `npm run dev` | Local dev server |
 | `npm run build` | Production build → `dist/` |
 | `npm run preview` | Preview the production build |
+| `npm run deploy` | Build and deploy to Cloudflare Workers Static Assets |
+| `npm run cf:login` | Authenticate the Wrangler CLI with Cloudflare |
+
+## Deploy
+
+Static Astro output is served from `./dist` via [`wrangler.jsonc`](wrangler.jsonc).
+
+```bash
+npm run cf:login   # once
+npm run deploy
+```
+
+For push-to-deploy, connect this GitHub repo in the Cloudflare dashboard under **Workers & Pages** → your Worker → **Settings** → **Builds** (build: `npm run build`, deploy: `npx wrangler deploy`).
