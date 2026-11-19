@@ -1,0 +1,80 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDateRange } from "../lib/format";
+import "../styles/timeline.css";
+
+const entries = (await getCollection("education")).sort((a, b) => {
+  if (a.data.order !== b.data.order) return a.data.order - b.data.order;
+  return b.data.startDate.valueOf() - a.data.startDate.valueOf();
+});
+
+const rendered = await Promise.all(
+  entries.map(async (entry) => ({
+    entry,
+    Content: (await render(entry)).Content,
+  })),
+);
+---
+
+<BaseLayout
+  title="Education"
+  description="Computer Engineering and Catholic Studies at the University of St. Thomas."
+>
+  <header class="page-head">
+    <p class="eyebrow">Academics</p>
+    <h1>Education</h1>
+    <p class="lede">
+      Formal study that grounds the engineering craft — systems, software, and
+      the liberal arts at the University of St. Thomas.
+    </p>
+  </header>
+
+  <ol class="timeline">
+    {
+      rendered.map(({ entry, Content }) => (
+        <li class="timeline__item">
+          <div class="timeline__meta">
+            <time datetime={entry.data.startDate.toISOString()}>
+              {formatDateRange(
+                entry.data.startDate,
+                entry.data.endDate,
+                entry.data.current,
+              )}
+            </time>
+            {entry.data.location && <span>{entry.data.location}</span>}
+            {entry.data.current && <span class="timeline__now">Now</span>}
+          </div>
+
+          <div class="timeline__body">
+            <h2>{entry.data.school}</h2>
+            <p class="timeline__role">{entry.data.degree}</p>
+            {entry.data.summary && (
+              <p class="timeline__summary">{entry.data.summary}</p>
+            )}
+
+            {entry.data.bullets.length > 0 && (
+              <ul class="timeline__bullets">
+                {entry.data.bullets.map((bullet) => (
+                  <li>{bullet}</li>
+                ))}
+              </ul>
+            )}
+
+            {entry.data.focus.length > 0 && (
+              <ul class="timeline__stack">
+                {entry.data.focus.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            )}
+
+            <div class="timeline__notes">
+              <Content />
+            </div>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</BaseLayout>

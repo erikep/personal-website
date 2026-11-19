@@ -56,7 +56,9 @@ const posts = (await getCollection("writing"))
         </div>
         <div>
           <dt>Study</dt>
-          <dd>{site.majors.join(" + ")}</dd>
+          <dd>
+            <a href="/education">{site.majors.join(" + ")}</a>
+          </dd>
         </div>
         <div>
           <dt>Based</dt>

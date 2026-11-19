@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDateRange } from "../lib/format";
+import "../styles/timeline.css";
 
 const roles = (await getCollection("experience")).sort((a, b) => {
   if (a.data.order !== b.data.order) return a.data.order - b.data.order;
@@ -18,15 +19,14 @@ const rendered = await Promise.all(
 
 <BaseLayout
   title="Work"
-  description="Experience across Amazon, Polar Semiconductor, and University of St. Thomas."
+  description="Software engineering experience at Amazon and Polar Semiconductor."
 >
   <header class="page-head">
     <p class="eyebrow">Experience</p>
     <h1>Work</h1>
     <p class="lede">
-      Roles and education that shaped how I build full-stack tools — from
-      large-scale product engineering to semiconductor software and campus
-      foundations.
+      Industry roles shaping how I build full-stack tools — from large-scale
+      product engineering to semiconductor software.
     </p>
   </header>
 
@@ -49,7 +49,9 @@ const rendered = await Promise.all(
           <div class="timeline__body">
             <h2>{role.data.company}</h2>
             <p class="timeline__role">{role.data.role}</p>
-            {role.data.summary && <p class="timeline__summary">{role.data.summary}</p>}
+            {role.data.summary && (
+              <p class="timeline__summary">{role.data.summary}</p>
+            )}
 
             {role.data.bullets.length > 0 && (
               <ul class="timeline__bullets">
@@ -76,125 +78,3 @@ const rendered = await Promise.all(
     }
   </ol>
 </BaseLayout>
-
-<style>
-  .page-head {
-    display: grid;
-    gap: var(--space-4);
-    max-width: var(--width-content);
-    margin-bottom: var(--space-8);
-  }
-
-  .eyebrow {
-    margin: 0;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    color: var(--color-ink-muted);
-  }
-
-  h1 {
-    font-size: var(--text-2xl);
-  }
-
-  .lede {
-    margin: 0;
-    color: var(--color-ink-muted);
-    max-width: 48ch;
-  }
-
-  .timeline {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0;
-    border-top: 1px solid var(--color-rule);
-  }
-
-  .timeline__item {
-    display: grid;
-    gap: var(--space-4);
-    padding-block: var(--space-7);
-    border-bottom: 1px solid var(--color-rule);
-  }
-
-  .timeline__meta {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--space-2) var(--space-3);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    color: var(--color-ink-muted);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .timeline__now {
-    color: var(--color-accent);
-  }
-
-  .timeline__body {
-    display: grid;
-    gap: var(--space-3);
-    max-width: 52rem;
-  }
-
-  .timeline__body h2 {
-    font-size: var(--text-xl);
-  }
-
-  .timeline__role {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: var(--text-lg);
-    font-weight: 500;
-  }
-
-  .timeline__summary {
-    margin: 0;
-    color: var(--color-ink-muted);
-  }
-
-  .timeline__bullets {
-    margin: var(--space-2) 0 0;
-    padding-left: 1.15rem;
-    display: grid;
-    gap: var(--space-2);
-  }
-
-  .timeline__bullets li::marker {
-    color: var(--color-accent);
-  }
-
-  .timeline__stack {
-    list-style: none;
-    margin: var(--space-2) 0 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-2) var(--space-3);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    text-transform: uppercase;
-    color: var(--color-ink-muted);
-  }
-
-  .timeline__notes {
-    color: var(--color-ink-muted);
-    font-size: var(--text-sm);
-  }
-
-  .timeline__notes :global(p) {
-    margin: 0;
-  }
-
-  @media (min-width: 56rem) {
-    .timeline__item {
-      grid-template-columns: 14rem minmax(0, 1fr);
-      gap: var(--space-7);
-      align-items: start;
-    }
-  }
-</style>

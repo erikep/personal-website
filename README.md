@@ -1,12 +1,12 @@
 # Erik — personal website
 
-Personal brand site for Erik: work experience, project portfolio, and writing.
+Personal brand site for Erik: work experience, education, project portfolio, and writing.
 
 ## Stack
 
 - [Astro](https://astro.build) + TypeScript
 - Custom CSS design tokens (no component library)
-- Markdown content collections for `experience`, `projects`, and `writing`
+- Markdown content collections for `experience`, `education`, `projects`, and `writing`
 - Target deploy: Cloudflare Workers Static Assets
 
 ## Develop
@@ -22,6 +22,7 @@ npm run dev
 | --- | --- |
 | `src/data/site.ts` | Name, tagline, email, social URLs, canonical `url` |
 | `src/content/experience/` | Work history entries |
+| `src/content/education/` | Education / academic entries |
 | `src/content/projects/` | Portfolio case studies |
 | `src/content/writing/` | Blog posts (`draft: true` hides from public lists/routes) |
 

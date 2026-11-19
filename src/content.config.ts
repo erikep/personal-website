@@ -18,6 +18,22 @@ const experience = defineCollection({
   }),
 });
 
+const education = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/education" }),
+  schema: z.object({
+    school: z.string(),
+    degree: z.string(),
+    location: z.string().optional(),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date().optional(),
+    current: z.boolean().default(false),
+    summary: z.string().optional(),
+    bullets: z.array(z.string()).default([]),
+    focus: z.array(z.string()).default([]),
+    order: z.number().default(0),
+  }),
+});
+
 const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: "./src/content/projects" }),
   schema: z.object({
@@ -48,4 +64,4 @@ const writing = defineCollection({
   }),
 });
 
-export const collections = { experience, projects, writing };
+export const collections = { experience, education, projects, writing };
