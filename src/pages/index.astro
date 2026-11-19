@@ -135,10 +135,9 @@ const posts = (await getCollection("writing"))
 <style>
   .hero {
     display: grid;
-    gap: var(--space-7);
-    align-items: end;
-    min-height: calc(100dvh - 8rem);
-    padding-bottom: var(--space-8);
+    gap: var(--space-6);
+    align-items: start;
+    padding-bottom: var(--space-7);
     border-bottom: 1px solid var(--color-rule);
     animation: rise-in var(--duration-med) var(--ease-out) both;
   }
@@ -188,7 +187,7 @@ const posts = (await getCollection("writing"))
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 2.5rem;
+    min-height: 2.75rem;
     padding: 0.55rem 1rem;
     border: 1px solid var(--color-rule);
     border-radius: var(--radius-sm);
@@ -371,6 +370,9 @@ const posts = (await getCollection("writing"))
     .hero {
       grid-template-columns: minmax(0, 1.4fr) minmax(14rem, 0.75fr);
       gap: var(--space-8);
+      align-items: end;
+      min-height: calc(100dvh - 8rem);
+      padding-bottom: var(--space-8);
     }
 
     .rail__row {

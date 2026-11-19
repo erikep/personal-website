@@ -17,7 +17,11 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  ogType="article"
+>
   <article class="post">
     <p class="eyebrow">
       <a href="/writing">Writing</a>

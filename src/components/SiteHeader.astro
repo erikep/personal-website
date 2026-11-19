@@ -17,7 +17,9 @@ function isActive(href: string) {
 
 <header class="site-header">
   <div class="site-header__inner">
-    <a class="site-header__brand" href="/">{site.name}</a>
+    <a class="site-header__brand" href="/" aria-label={`${site.name} home`}>
+      {site.name}
+    </a>
     <nav class="site-header__nav" aria-label="Primary">
       {
         links.map((link) => (
@@ -40,20 +42,20 @@ function isActive(href: string) {
     top: 0;
     z-index: var(--z-header);
     backdrop-filter: blur(10px);
-    background: color-mix(in srgb, var(--color-bg) 82%, transparent);
+    background: color-mix(in srgb, var(--color-bg) 88%, transparent);
     border-bottom: 1px solid color-mix(in srgb, var(--color-rule) 70%, transparent);
     padding-top: env(safe-area-inset-top);
     animation: header-in var(--duration-med) var(--ease-out) both;
   }
 
   .site-header__inner {
-    width: min(100% - 2 * var(--space-5), var(--width-wide));
+    width: min(100% - 2 * var(--space-4), var(--width-wide));
     margin-inline: auto;
     min-height: 3.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-5);
+    gap: var(--space-4);
   }
 
   .site-header__brand {
@@ -62,6 +64,9 @@ function isActive(href: string) {
     font-size: var(--text-lg);
     text-decoration: none;
     color: var(--color-ink);
+    min-height: 2.75rem;
+    display: inline-flex;
+    align-items: center;
   }
 
   .site-header__brand:hover {
@@ -72,7 +77,7 @@ function isActive(href: string) {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
-    gap: var(--space-2) var(--space-4);
+    gap: var(--space-1) var(--space-2);
   }
 
   .site-header__link {
@@ -81,7 +86,10 @@ function isActive(href: string) {
     text-transform: uppercase;
     text-decoration: none;
     color: var(--color-ink-muted);
-    padding-block: var(--space-2);
+    min-height: 2.75rem;
+    padding-inline: var(--space-2);
+    display: inline-flex;
+    align-items: center;
   }
 
   .site-header__link:hover,
@@ -101,6 +109,17 @@ function isActive(href: string) {
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .site-header__inner {
+      width: min(100% - 2 * var(--space-5), var(--width-wide));
+      gap: var(--space-5);
+    }
+
+    .site-header__nav {
+      gap: var(--space-2) var(--space-3);
     }
   }
 

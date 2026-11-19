@@ -1,23 +1,30 @@
 ---
 import { site } from "../data/site";
 
-const socialEntries = Object.entries(site.socials) as [string, string][];
+const socialEntries = (
+  Object.entries(site.socials) as [keyof typeof site.socials, string][]
+).map(([name, href]) => ({
+  name,
+  href,
+  label: name === "github" ? "GitHub" : name === "linkedin" ? "LinkedIn" : name,
+}));
 ---
 
 <footer class="site-footer">
   <div class="site-footer__inner">
     <div class="site-footer__contact">
-      <p class="site-footer__label">Contact</p>
+      <p class="site-footer__label" id="footer-contact-label">Contact</p>
       <a href={`mailto:${site.email}`}>{site.email}</a>
     </div>
     <div class="site-footer__socials">
-      <p class="site-footer__label">Elsewhere</p>
-      <ul>
+      <p class="site-footer__label" id="footer-elsewhere-label">Elsewhere</p>
+      <ul aria-labelledby="footer-elsewhere-label">
         {
-          socialEntries.map(([name, href]) => (
+          socialEntries.map(({ label, href }) => (
             <li>
               <a href={href} rel="me noopener noreferrer" target="_blank">
-                {name}
+                {label}
+                <span class="visually-hidden"> (opens in a new tab)</span>
               </a>
             </li>
           ))
@@ -37,7 +44,7 @@ const socialEntries = Object.entries(site.socials) as [string, string][];
   }
 
   .site-footer__inner {
-    width: min(100% - 2 * var(--space-5), var(--width-wide));
+    width: min(100% - 2 * var(--space-4), var(--width-wide));
     margin-inline: auto;
     display: grid;
     gap: var(--space-5);
@@ -62,6 +69,9 @@ const socialEntries = Object.entries(site.socials) as [string, string][];
   .site-footer__socials a {
     text-decoration: none;
     font-size: var(--text-sm);
+    min-height: 2.5rem;
+    display: inline-flex;
+    align-items: center;
   }
 
   .site-footer__contact a:hover,
@@ -76,11 +86,12 @@ const socialEntries = Object.entries(site.socials) as [string, string][];
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-3) var(--space-4);
+    gap: var(--space-2) var(--space-4);
   }
 
   @media (min-width: 40rem) {
     .site-footer__inner {
+      width: min(100% - 2 * var(--space-5), var(--width-wide));
       grid-template-columns: 1fr 1fr;
       align-items: start;
     }

@@ -7,15 +7,49 @@ import { site } from "../data/site";
 interface Props {
   title?: string;
   description?: string;
+  ogType?: "website" | "article";
+  image?: string;
+  noindex?: boolean;
 }
 
 const {
   title = `${site.name} — ${site.title}`,
   description = site.tagline,
+  ogType = "website",
+  image = site.ogImage,
+  noindex = false,
 } = Astro.props;
 
 const defaultTitle = `${site.name} — ${site.title}`;
 const pageTitle = title === defaultTitle ? title : `${title} · ${site.name}`;
+
+const canonicalURL = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : new URL(Astro.url.pathname, site.url);
+
+const imageURL = new URL(image, canonicalURL).href;
+const imageAlt = `${site.fullName}, software engineer`;
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: site.fullName,
+  url: site.url,
+  email: site.email,
+  jobTitle: site.title,
+  image: imageURL,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "St. Paul",
+    addressRegion: "MN",
+    addressCountry: "US",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: site.school,
+  },
+  sameAs: Object.values(site.socials),
+};
 ---
 
 <!doctype html>
@@ -25,20 +59,44 @@ const pageTitle = title === defaultTitle ? title : `${title} · ${site.name}`;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="author" content={site.fullName} />
+    <meta name="theme-color" content="#f2f4f6" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <title>{pageTitle}</title>
+    <link rel="canonical" href={canonicalURL.href} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.fullName} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:alt" content={imageAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageURL} />
+    <meta name="twitter:image:alt" content={imageAlt} />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
     />
+
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
     <SiteHeader />
-    <main id="main">
+    <main id="main" tabindex="-1">
       <slot />
     </main>
     <SiteFooter />
@@ -49,7 +107,7 @@ const pageTitle = title === defaultTitle ? title : `${title} · ${site.name}`;
   .skip-link {
     position: absolute;
     left: var(--space-4);
-    top: var(--space-4);
+    top: calc(var(--space-4) + env(safe-area-inset-top));
     transform: translateY(-160%);
     z-index: var(--z-overlay);
     padding: var(--space-2) var(--space-3);
@@ -64,8 +122,15 @@ const pageTitle = title === defaultTitle ? title : `${title} · ${site.name}`;
   }
 
   main {
-    width: min(100% - 2 * var(--space-5), var(--width-wide));
+    width: min(100% - 2 * var(--space-4), var(--width-wide));
     margin-inline: auto;
     padding-block: var(--space-6) var(--space-9);
+    outline: none;
+  }
+
+  @media (min-width: 40rem) {
+    main {
+      width: min(100% - 2 * var(--space-5), var(--width-wide));
+    }
   }
 </style>

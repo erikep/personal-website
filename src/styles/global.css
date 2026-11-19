@@ -12,7 +12,12 @@ html {
   background-image:
     radial-gradient(ellipse 120% 80% at 10% -20%, #e4eef0 0%, transparent 55%),
     radial-gradient(ellipse 90% 60% at 100% 0%, #ebe6df 0%, transparent 45%);
-  background-attachment: fixed;
+}
+
+@media (min-width: 56rem) {
+  html {
+    background-attachment: fixed;
+  }
 }
 
 body {

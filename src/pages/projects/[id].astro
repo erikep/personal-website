@@ -23,7 +23,11 @@ const linkEntries = (
 ).filter((entry): entry is [string, string] => Boolean(entry[1]));
 ---
 
-<BaseLayout title={project.data.title} description={project.data.summary}>
+<BaseLayout
+  title={project.data.title}
+  description={project.data.summary}
+  ogType="article"
+>
   <article class="project">
     <p class="eyebrow">
       <a href="/projects">Projects</a>

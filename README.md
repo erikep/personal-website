@@ -20,10 +20,12 @@ npm run dev
 
 | Path | Purpose |
 | --- | --- |
-| `src/data/site.ts` | Name, tagline, email, social URLs |
+| `src/data/site.ts` | Name, tagline, email, social URLs, canonical `url` |
 | `src/content/experience/` | Work history entries |
 | `src/content/projects/` | Portfolio case studies |
-| `src/content/writing/` | Blog posts (`draft: true` hides from public lists later) |
+| `src/content/writing/` | Blog posts (`draft: true` hides from public lists/routes) |
+
+Update `site.url` in `src/data/site.ts` and `site` in `astro.config.mjs` together when the production domain is final. Default social share image is `public/images/og.jpg` (`site.ogImage`); override per page with the `image` prop on `BaseLayout`.
 
 ## Scripts
 
