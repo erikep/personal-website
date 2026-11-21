@@ -15,6 +15,12 @@ const experience = defineCollection({
     bullets: z.array(z.string()).default([]),
     stack: z.array(z.string()).default([]),
     order: z.number().default(0),
+    image: z
+      .object({
+        src: z.string(),
+        alt: z.string(),
+      })
+      .optional(),
   }),
 });
 
@@ -31,6 +37,12 @@ const education = defineCollection({
     bullets: z.array(z.string()).default([]),
     focus: z.array(z.string()).default([]),
     order: z.number().default(0),
+    image: z
+      .object({
+        src: z.string(),
+        alt: z.string(),
+      })
+      .optional(),
   }),
 });
 
@@ -49,6 +61,12 @@ const projects = defineCollection({
         demo: z.string().url().optional(),
       })
       .default({}),
+    image: z
+      .object({
+        src: z.string(),
+        alt: z.string(),
+      })
+      .optional(),
   }),
 });
 

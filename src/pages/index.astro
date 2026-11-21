@@ -25,12 +25,10 @@ const posts = (await getCollection("writing"))
       <p class="hero__eyebrow">{site.title}</p>
       <h1 id="hero-name">{site.name}</h1>
       <p class="hero__headline">
-        Building full-stack tools that make engineers feel 100x.
+        Building to unblock people's best work
       </p>
       <p class="hero__lede">
-        Developer tools and personal productivity software — from Amazon to
-        Polar Semiconductor, while studying Computer Engineering and Catholic
-        Studies at {site.school}.
+        Welcome! This website provides a closer look into who I am, what I do, and my journey as a software engineer.
       </p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="/projects">View projects</a>
@@ -40,19 +38,19 @@ const posts = (await getCollection("writing"))
     </div>
 
     <aside class="hero__spec" aria-label="Profile snapshot">
-      <p class="hero__spec-title">Profile</p>
+      <p class="hero__spec-title">Profile Overview</p>
       <dl>
         <div>
           <dt>Focus</dt>
-          <dd>Dev tools · Productivity</dd>
+          <dd>Dev Tools · Personal Productivity · FinTech</dd>
         </div>
         <div>
           <dt>Now</dt>
-          <dd>Intern · Polar Semiconductor</dd>
+          <dd>SWE Intern @ Polar Semiconductor</dd>
         </div>
         <div>
           <dt>Previously</dt>
-          <dd>Amazon</dd>
+          <dd>SDE Intern @ Amazon</dd>
         </div>
         <div>
           <dt>Study</dt>
@@ -61,7 +59,7 @@ const posts = (await getCollection("writing"))
           </dd>
         </div>
         <div>
-          <dt>Based</dt>
+          <dt>Based in</dt>
           <dd>{site.location}</dd>
         </div>
       </dl>

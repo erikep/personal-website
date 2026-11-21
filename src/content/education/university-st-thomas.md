@@ -1,18 +1,21 @@
 ---
 school: University of St. Thomas
 degree: B.S. Computer Engineering & B.A. Catholic Studies
-location: St. Paul, Minnesota
+location: Saint Paul, MN
 startDate: 2024-09-01
+endDate: 2028-05-01
 current: true
 order: 1
-summary: Junior focusing on systems, software, and the liberal arts.
+summary: Double major with coursework in cloud, databases, and algorithms, and rigorous study of the Catholic faith.
 bullets:
-  - Placeholder — add coursework, leadership, or academic projects worth highlighting.
+  - Awards — The Gates Scholarship, Amazon Future Engineer Scholarship, Guadalupe’s Scholarship, ColorStack.
+  - Relevant coursework — Cloud Computing, Database Management Systems and Design, Data Structures and Algorithms, Microprocessor Architectures.
 focus:
-  - Distributed Systems
-  - Agentic AI
-  - Full Stack Engineering
+  - Computer Engineering
   - Catholic Studies
+  - Cloud Computing
+  - Databases
+image:
+  src: /images/education/university-st-thomas.jpg
+  alt: University of St. Thomas crest
 ---
-
-Academic foundation alongside industry work. Update dates and bullets with specifics.

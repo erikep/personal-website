@@ -5,7 +5,7 @@ export const site = {
   tagline:
     "Full-stack engineer building developer tools and personal productivity software.",
   school: "University of St. Thomas",
-  majors: ["Computer Engineering", "Catholic Studies"],
+  majors: ["B.S. Computer Engineering", "B.A. Catholic Studies"],
   email: "estebaerik2@gmail.com",
   location: "St. Paul, Minnesota",
   /** Canonical site origin — update when a custom domain is attached. */

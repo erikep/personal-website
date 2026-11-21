@@ -1,27 +1,31 @@
 ---
-title: Starting from a blank page
-description: Why this site exists, and how I’m using writing to sharpen engineering judgment.
-publishedAt: 2025-11-17
+title: Welcome
+description: Why this site exists and why I'll be writing.
+publishedAt: 2026-11-20
 tags:
-  - meta
-  - craft
+  - Personal journey
 draft: false
 ---
 
-This site is a public workshop for how I build — developer tools, personal productivity systems, and the full-stack craft behind them.
-
-I’m not optimizing for volume. I’m optimizing for clarity: one idea per post, grounded in work I’ve actually done or am actively learning.
+My goal is to fulfill my potential as an engineer, and building publicly would allow me do so by keeping me accountable to build,
+showing off my work, and challenging myself to fully understand what I'm doing, or at least be confident in my work.
 
 ## What you’ll find here
 
-- Notes on shipping tools that compound for other engineers
-- Lessons from industry work and university projects
-- Process writing when the process itself is the product
+- Notes on practices and tools that compound for other engineers
+- Lessons from industry work and personal projects
+- Opinion pieces on technology and society
 
-If you’re building something adjacent — a CLI, an internal platform, a habit system — I hope a few of these posts save you a wrong turn.
+## Why write?
 
-## How posts get written
+I've always enjoyed writing because it allows me to distill my thoughts and free up space mentally. Additionally, I've noticed that
+the best engineers can confidently articulate their position and defend their work to a wide range of audiences, so by practicing my writing,
+I can build these skills up and work towards my goal of becoming the best engineer I can be.
 
-Drafts stay private until they’re useful. When a post ships, it should answer a specific question, not fill a calendar slot.
+## Expectations
 
-Replace this piece with your own first essay when you’re ready. The scaffolding is already in place.
+I’m optimizing for clarity. In practice, this means I'll stick to one idea per post, grounding each one in personal experiences, like work I’ve actually done or am undertaking.
+
+Above all, this is a place for me to explain my thinking, and maybe a few of these posts can provide you an idea or save you a wrong turn.
+
+Feel free to contact me via email.

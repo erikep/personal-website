@@ -1,15 +1,15 @@
 ---
 company: Polar Semiconductor
 role: Software Engineering Intern
-location: Minnesota
-startDate: 2025-01-01
+location: Bloomington, MN
+startDate: 2026-10-01
 current: true
 order: 1
-summary: Building software in a semiconductor manufacturing environment.
-bullets:
-  - Placeholder — replace with concrete impact and systems you owned.
+summary: Building legacy code conversion system in a semiconductor manufacturing environment.
 stack:
-  - Full-stack
+  - C++
+  - Keithley S530
+image:
+  src: /images/experience/polar-semiconductor.jpg
+  alt: Polar Semiconductor logo
 ---
-
-Currently interning at Polar Semiconductor.

@@ -110,10 +110,32 @@
   margin: 0;
 }
 
+.timeline__aside {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.timeline__media {
+  margin: 0;
+  position: relative;
+  max-width: 10rem;
+}
+
+.timeline__media img {
+  width: 100%;
+  height: auto;
+  background: var(--color-bg-elevated);
+}
+
 @media (min-width: 56rem) {
   .timeline__item {
     grid-template-columns: 14rem minmax(0, 1fr);
     gap: var(--space-7);
     align-items: start;
+  }
+
+  .timeline__media {
+    max-width: none;
   }
 }
